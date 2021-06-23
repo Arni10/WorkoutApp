@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">WorkoutApp</string>
+
+    <!-- Login & Register -->
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registerQuestion">Do not have an account?</string>
+    <string name="register">Register</string>
+    <string name="loginQuestion">Do you have an account?</string>
+    <string name="passwordConfirmation">Confirm password</string>
+    <string name="username">Username</string>
+    <string name="termsAndConditions">Accept the terms and conditions</string>
+
+    <!-- Workout -->
+    <string name="addNewWorkout">Add New Workout</string>
+    <string name="workoutName">Workout name</string>
+    <string name="burnedCalories">Burned calories</string>
+    <string name="workoutDate">Date of Workout</string>
+    <string name="date">Date</string>
+    <string name="workoutDuration">Workout duration (min)</string>
+    <string name="workoutUploadPicture">Upload picture</string>
+
+</resources>
