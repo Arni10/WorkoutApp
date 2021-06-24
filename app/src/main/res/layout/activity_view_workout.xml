@@ -6,4 +6,135 @@
     android:layout_height="match_parent"
     tools:context=".ViewWorkoutActivity">
 
+    <TextView
+        android:id="@+id/tvWorkoutDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workoutDetails"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/orange"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvWorkoutNameDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workoutNameDetail"
+        android:textColor="@color/black"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutDetails" />
+
+    <TextView
+        android:id="@+id/tvWorkoutNameDetailDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/workoutName"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvWorkoutNameDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutDetails" />
+
+    <TextView
+        android:id="@+id/tvWorkoutBurnedCaloriesDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workoutBurnedCaloriesDetail"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutNameDetail" />
+
+    <TextView
+        android:id="@+id/tvWorkoutBurnedCaloriesDetailDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:text="@string/burnedCalories"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvWorkoutBurnedCaloriesDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutNameDetailDB" />
+
+    <TextView
+        android:id="@+id/tvWorkoutDateDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workoutDateDetail"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutBurnedCaloriesDetail" />
+
+    <TextView
+        android:id="@+id/tvWorkoutDateDetailDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/black"
+        android:text="@string/workoutDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintStart_toEndOf="@+id/tvWorkoutDateDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutBurnedCaloriesDetailDB" />
+
+    <TextView
+        android:id="@+id/tvWorkoutDurationDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workoutDurationDetail"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutDateDetail" />
+
+    <TextView
+        android:id="@+id/tvWorkoutDurationDetailDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/black"
+        android:text="@string/workoutDuration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvWorkoutDurationDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutDateDetailDB" />
+
+    <TextView
+        android:id="@+id/tvWorkoutPictureDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workoutPictureDetail"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutDurationDetail" />
+
+    <ImageView
+        android:id="@+id/ivWorkoutPictureDetailDB"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvWorkoutPictureDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvWorkoutDurationDetailDB" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

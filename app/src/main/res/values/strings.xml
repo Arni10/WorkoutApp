@@ -12,7 +12,7 @@
     <string name="username">Username</string>
     <string name="termsAndConditions">Accept the terms and conditions</string>
 
-    <!-- Workout -->
+    <!-- Workout add & history-->
     <string name="addNewWorkout">Add New Workout</string>
     <string name="workoutName">Workout name</string>
     <string name="burnedCalories">Burned calories</string>
@@ -20,5 +20,15 @@
     <string name="date">Date</string>
     <string name="workoutDuration">Workout duration (min)</string>
     <string name="workoutUploadPicture">Upload picture</string>
+    <string name="saveWorkout">Save</string>
+    <string name="workoutHistory">Workout history</string>
+
+    <!-- Workout details -->
+    <string name="workoutDetails">Workout details</string>
+    <string name="workoutNameDetail">Workout name: </string>
+    <string name="workoutBurnedCaloriesDetail">Burned calories: </string>
+    <string name="workoutDateDetail">Date of workout: </string>
+    <string name="workoutDurationDetail">Workout duration (min): </string>
+    <string name="workoutPictureDetail">Picture: </string>
 
 </resources>
