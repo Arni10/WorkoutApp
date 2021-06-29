@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewWorkoutActivity">
+    tools:context=".views.AddNewWorkoutActivity">
 
     <TextView
         android:id="@+id/tvAddNewWorkout"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/tvAddNewWorkoutName"
+        android:id="@+id/etAddNewWorkoutName"
         android:layout_width="258dp"
         android:layout_height="43dp"
         android:layout_marginTop="60dp"
@@ -33,17 +33,18 @@
         app:layout_constraintTop_toBottomOf="@+id/tvAddNewWorkout" />
 
     <EditText
-        android:id="@+id/tvAddNewWorkoutBurnedCalories"
+        android:id="@+id/etAddNewWorkoutBurnedCalories"
         android:layout_width="258dp"
         android:layout_height="43dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/burnedCalories"
         android:inputType="number"
+        android:digits="0123456789"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddNewWorkoutName" />
+        app:layout_constraintTop_toBottomOf="@+id/etAddNewWorkoutName" />
 
     <Button
         android:id="@+id/btnAddNewWorkoutDate"
@@ -54,7 +55,7 @@
         android:text="@string/date"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddNewWorkoutBurnedCalories" />
+        app:layout_constraintTop_toBottomOf="@+id/etAddNewWorkoutBurnedCalories" />
 
     <TextView
         android:id="@+id/tvAddNewWorkoutDate"
@@ -66,33 +67,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.331"
         app:layout_constraintStart_toEndOf="@+id/btnAddNewWorkoutDate"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddNewWorkoutBurnedCalories" />
+        app:layout_constraintTop_toBottomOf="@+id/etAddNewWorkoutBurnedCalories" />
 
     <EditText
-        android:id="@+id/tvAddNewWorkoutDuration"
+        android:id="@+id/etAddNewWorkoutDuration"
         android:layout_width="258dp"
         android:layout_height="43dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/workoutDuration"
         android:inputType="number"
+        android:digits="0123456789"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAddNewWorkoutDate" />
 
     <Button
-        android:id="@+id/btnAddNewWorkOutUploadPicture"
+        android:id="@+id/btnAddNewWorkoutChoosePicture"
         android:layout_width="80dp"
         android:layout_height="45dp"
         android:layout_marginStart="76dp"
         android:layout_marginTop="20dp"
-        android:text="@string/workoutUploadPicture"
+        android:text="@string/workoutChoosePicture"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddNewWorkoutDuration" />
+        app:layout_constraintTop_toBottomOf="@+id/etAddNewWorkoutDuration" />
+
+    <ImageView
+        android:id="@+id/ivAddNewWorkoutChoosePicture"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAddNewWorkoutChoosePicture"
+        app:layout_constraintTop_toBottomOf="@+id/etAddNewWorkoutDuration" />
 
     <Button
         android:id="@+id/btnSaveWorkout"
@@ -103,5 +112,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddNewWorkOutUploadPicture" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddNewWorkoutChoosePicture" />
 </androidx.constraintlayout.widget.ConstraintLayout>

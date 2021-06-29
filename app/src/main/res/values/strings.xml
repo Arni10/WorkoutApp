@@ -19,9 +19,11 @@
     <string name="workoutDate">Date of Workout</string>
     <string name="date">Date</string>
     <string name="workoutDuration">Workout duration (min)</string>
-    <string name="workoutUploadPicture">Upload picture</string>
+    <string name="workoutChoosePicture">Choose picture</string>
     <string name="saveWorkout">Save</string>
     <string name="workoutHistory">Workout history</string>
+    <string name="signOut">Sign out</string>
+    <string name="workoutNameDefault">workout_currentDate</string>
 
     <!-- Workout details -->
     <string name="workoutDetails">Workout details</string>
@@ -30,5 +32,28 @@
     <string name="workoutDateDetail">Date of workout: </string>
     <string name="workoutDurationDetail">Workout duration (min): </string>
     <string name="workoutPictureDetail">Picture: </string>
+
+    <!-- Errors User -->
+    <string name="errorEmail">Please enter email</string>
+    <string name="errorPassword">Please enter password</string>
+    <string name="errorEmailPattern">Please enter valid email</string>
+    <string name="errorPasswordConfirmation">Please confirm password</string>
+    <string name="errorPasswordMatch">The 2 passwords does not match</string>
+    <string name="errorUsername">Please enter username</string>
+    <string name="errorTermsAndConditions">Please check the terms and conditions</string>
+    <string name="errorRegister">Register failed</string>
+    <string name="errorLogin">Login failed</string>
+
+    <!-- Errors workout -->
+    <string name="errorAddWorkoutName">Please add workout name</string>
+    <string name="errorAddWorkoutBurnedCalories">Please add burned calories</string>
+    <string name="errorAddWorkoutDate">Please add workout date</string>
+    <string name="errorAddWorkoutDuration">Please add workout duration</string>
+    <string name="errorAddWorkoutPicture">Please add workout picture</string>
+    <string name="errorSaveWorkout">Saving failed</string>
+
+    <!-- Success -->
+    <string name="successRegister">Register successful</string>
+    <string name="successSave">Workout saved successful</string>
 
 </resources>

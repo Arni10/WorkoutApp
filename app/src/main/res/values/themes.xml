@@ -14,4 +14,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="WorkoutDatePickerDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorAccent">@color/orange</item>
+        <item name="colorOnPrimary">@color/orange</item>
+    </style>
+
 </resources>

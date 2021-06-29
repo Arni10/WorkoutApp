@@ -19,11 +19,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvWorkoutDurationPreview"
+        android:id="@+id/tvWorkoutDatePreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="@string/workoutDuration"
+        android:text="@string/workoutDate"
         android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +34,6 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvWorkoutDurationPreview"
+        app:layout_constraintStart_toEndOf="@+id/tvWorkoutDatePreview"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
