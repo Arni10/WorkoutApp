@@ -2,6 +2,7 @@ package com.example.workoutapp.views
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.example.workoutapp.models.Workout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_add_new_workout.*
 import kotlinx.android.synthetic.main.activity_register.*
 import java.text.SimpleDateFormat
@@ -19,19 +21,20 @@ class AddNewWorkoutActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private lateinit var imageUri: Uri
+    private lateinit var currentUserID: String
+    private lateinit var key: String
 
     companion object{
-        val IMAGE_REQUEST_CODE = 100
+        const val IMAGE_REQUEST_CODE = 100
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_workout)
 
-        supportActionBar?.hide()
-
         auth = FirebaseAuth.getInstance()
-
+        currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
         database = FirebaseDatabase.getInstance().getReference("Users")
 
         btnAddNewWorkoutDate.setOnClickListener {
@@ -56,7 +59,22 @@ class AddNewWorkoutActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
-            ivAddNewWorkoutChoosePicture.setImageURI(data?.data)
+            imageUri = data?.data!!
+            ivAddNewWorkoutChoosePicture.setImageURI(imageUri)
+        }
+    }
+
+    private fun uploadPicture() {
+        val formatter = SimpleDateFormat("yyyy.MM.dd")
+        val now = Date()
+        val fileName = formatter.format(now)
+
+        val storage = FirebaseStorage.getInstance().getReference("images").child(currentUserID)
+            .child("workouts").child(key).child(fileName)
+        storage.putFile(imageUri).addOnSuccessListener {
+
+        }.addOnFailureListener {
+            Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.errorWorkoutPicture), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -66,8 +84,6 @@ class AddNewWorkoutActivity : AppCompatActivity() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-
 
         val datePickerDialog = DatePickerDialog(
             this@AddNewWorkoutActivity,
@@ -80,7 +96,7 @@ class AddNewWorkoutActivity : AppCompatActivity() {
     }
 
     private fun checkWorkout() {
-        if (etAddNewWorkoutBurnedCalories.text.toString().isNullOrEmpty()) {
+        if (etAddNewWorkoutBurnedCalories.text.toString().isEmpty()) {
             etAddNewWorkoutBurnedCalories.error = getString(R.string.errorAddWorkoutBurnedCalories)
             etAddNewWorkoutBurnedCalories.requestFocus()
             return
@@ -89,16 +105,16 @@ class AddNewWorkoutActivity : AppCompatActivity() {
             Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.errorAddWorkoutDate), Toast.LENGTH_LONG).show()
             return
         }
-        if (etAddNewWorkoutDuration.text.toString().isNullOrEmpty()) {
+        if (etAddNewWorkoutDuration.text.toString().isEmpty()) {
             etAddNewWorkoutDuration.error = getString(R.string.errorAddWorkoutDuration)
             etAddNewWorkoutDuration.requestFocus()
             return
         }
         saveWorkout()
+        uploadPicture()
     }
 
     private fun saveWorkout() {
-        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
         val workoutSaveDate = Calendar.getInstance().time
         val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
         val workoutDate = simpleDateFormat.parse(tvAddNewWorkoutDate.text.toString())
@@ -120,8 +136,8 @@ class AddNewWorkoutActivity : AppCompatActivity() {
                     workoutSaveDate
                 )
         }
-        val key = database.child(currentUserID).child("Workouts").push().key
-        database.child(currentUserID).child("Workouts").child(key.toString()).setValue(workout).addOnSuccessListener {
+        key = database.child(currentUserID).child("Workouts").push().key.toString()
+        database.child(currentUserID).child("Workouts").child(key).setValue(workout).addOnSuccessListener {
             Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.successSave), Toast.LENGTH_SHORT).show()
             val intent = Intent(this@AddNewWorkoutActivity, HomeActivity::class.java)
             startActivity(intent)

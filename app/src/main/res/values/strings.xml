@@ -51,9 +51,21 @@
     <string name="errorAddWorkoutDuration">Please add workout duration</string>
     <string name="errorAddWorkoutPicture">Please add workout picture</string>
     <string name="errorSaveWorkout">Saving failed</string>
+    <string name="errorWorkoutPicture">Picture uploading failed</string>
+    <string name="errorWorkoutPictureDetail">Picture showing failed</string>
 
     <!-- Success -->
     <string name="successRegister">Register successful</string>
     <string name="successSave">Workout saved successful</string>
+    <string name="successChangeUsername">Username changed successful</string>
+
+    <!-- User -->
+    <string name="userProfile">User profile</string>
+    <string name="userChangeUsername">Change username</string>
+    <string name="saveChange">Change</string>
+    <string name="errorDisplayUsername">Error display username</string>
+    <string name="errorChangeUsername">Username change failed</string>
+    <string name="errorSameUsername">New username cannot be old username</string>
+
 
 </resources>

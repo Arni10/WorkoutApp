@@ -15,12 +15,11 @@ import kotlinx.android.synthetic.main.activity_register.*
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-
+    lateinit var email: String
+    lateinit var password: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        supportActionBar?.hide()
 
         auth = FirebaseAuth.getInstance()
 
@@ -36,17 +35,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-        if (etLoginEmail.text.toString().isEmpty()) {
+        email = etLoginEmail.text.toString()
+        password = etLoginPassword.text.toString()
+
+        if (email.isEmpty()) {
             etLoginEmail.error = getString(R.string.errorEmail)
             etLoginEmail.requestFocus()
             return
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(etLoginEmail.text.toString()).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etLoginEmail.error = getString(R.string.errorEmailPattern)
             etLoginEmail.requestFocus()
             return
         }
-        if (etLoginPassword.text.toString().isEmpty()) {
+        if (password.isEmpty()) {
             etLoginPassword.error = getString(R.string.errorPassword)
             etLoginPassword.requestFocus()
             return

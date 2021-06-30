@@ -7,26 +7,24 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import com.example.workoutapp.R
-import com.example.workoutapp.models.User
+import com.example.workoutapp.controllers.RegisterController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
+    private val controller: RegisterController = RegisterController(this)
+    lateinit var email: String
+    lateinit var password: String
+    lateinit var passwordConfirmation: String
+    lateinit var username: String
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        supportActionBar?.hide()
-
         auth = FirebaseAuth.getInstance()
-
-        database = FirebaseDatabase.getInstance().getReference("Users")
 
         btnRegister.setOnClickListener{
             checkUser()
@@ -40,32 +38,37 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkUser() {
-        if (etRegisterEmail.text.toString().isEmpty()) {
+        email = etRegisterEmail.text.toString()
+        password = etRegisterPassword.text.toString()
+        passwordConfirmation = etRegisterPasswordConfirmation.text.toString()
+        username = etRegisterUsername.text.toString()
+
+        if (email.isEmpty()) {
             etRegisterEmail.error = getString(R.string.errorEmail)
             etRegisterEmail.requestFocus()
             return
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(etRegisterEmail.text.toString()).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etRegisterEmail.error = getString(R.string.errorEmailPattern)
             etRegisterEmail.requestFocus()
             return
         }
-        if (etRegisterPassword.text.toString().isEmpty()) {
+        if (password.isEmpty()) {
             etRegisterPassword.error = getString(R.string.errorPassword)
             etRegisterPassword.requestFocus()
             return
         }
-        if (etRegisterPasswordConfirmation.text.toString().isEmpty()) {
+        if (passwordConfirmation.isEmpty()) {
             etRegisterPasswordConfirmation.error = getString(R.string.errorPasswordConfirmation)
             etRegisterPasswordConfirmation.requestFocus()
             return
         }
-        if (etRegisterPassword.text.toString() != etRegisterPasswordConfirmation.text.toString()) {
+        if (password != passwordConfirmation) {
             etRegisterPasswordConfirmation.error = getString(R.string.errorPasswordMatch)
             etRegisterPasswordConfirmation.requestFocus()
             return
         }
-        if (etRegisterUsername.text.toString().isEmpty()) {
+        if (username.isEmpty()) {
             etRegisterUsername.error = getString(R.string.errorUsername)
             etRegisterUsername.requestFocus()
             return
@@ -75,27 +78,30 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        auth.createUserWithEmailAndPassword(etRegisterEmail.text.toString(), etRegisterPassword.text.toString())
+        createUser()
+
+    }
+
+    private fun createUser() {
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    registerUser()
+                    controller.saveUsername(username)
                 } else {
                     Toast.makeText(this@RegisterActivity, getString(R.string.errorRegister), Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    fun registerUser() {
+        Toast.makeText(this@RegisterActivity, getString(R.string.successRegister), Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@RegisterActivity, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
 
     }
-    
-    private fun registerUser() {
-        val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
-        val user = User(etRegisterEmail.text.toString(), etRegisterPassword.text.toString(), etRegisterUsername.text.toString())
-        database.child(currentUserID).setValue(user).addOnSuccessListener {
-            Toast.makeText(this@RegisterActivity, getString(R.string.successRegister), Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@RegisterActivity, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }.addOnFailureListener {
-            Toast.makeText(this@RegisterActivity, getString(R.string.errorRegister), Toast.LENGTH_SHORT).show()
-        }
+    fun registerError() {
+        Toast.makeText(this@RegisterActivity, getString(R.string.errorRegister), Toast.LENGTH_SHORT).show()
     }
+
 }

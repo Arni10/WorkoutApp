@@ -7,7 +7,6 @@ data class Workout(
     var burnedCalories: Double? = null,
     var workoutDate: Date? = null,
     var workoutDuration: Int? = null,
-    //var workoutPicture: String?,
     var workoutAddingDate: Date? = null
 )
 

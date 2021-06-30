@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkoutApp">
-        <activity android:name=".views.AddNewWorkoutActivity"/>
+        <activity android:name=".views.UserProfileActivity"></activity>
+        <activity android:name=".views.AddNewWorkoutActivity" />
         <activity android:name=".views.ViewWorkoutActivity" />
-        <activity android:name=".views.HomeActivity"/>
+        <activity android:name=".views.HomeActivity" />
         <activity android:name=".views.RegisterActivity" />
         <activity android:name=".views.LoginActivity" />
         <activity android:name=".views.SplashActivity">
