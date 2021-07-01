@@ -3,10 +3,10 @@ package com.example.workoutapp.views
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import com.example.workoutapp.R
+import com.example.workoutapp.controllers.UserProfileController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -15,9 +15,13 @@ import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : AppCompatActivity() {
 
+    private val controller: UserProfileController = UserProfileController(this)
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var username: String
+    private lateinit var changeUsername: String
+    //private lateinit var changedUsername: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
@@ -30,7 +34,7 @@ class UserProfileActivity : AppCompatActivity() {
         getUsername()
 
         btnSaveUsernameChange.setOnClickListener{
-            updateUsername()
+            checkUsername()
         }
 
         btnSignOut.setOnClickListener(View.OnClickListener {
@@ -41,7 +45,7 @@ class UserProfileActivity : AppCompatActivity() {
         })
     }
 
-    private fun getUsername() {
+    private fun getUsername(){
         database.get().addOnSuccessListener {
             if (it.exists()) {
                 username = it.child("username").value.toString()
@@ -52,21 +56,24 @@ class UserProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUsername() {
-        if (etChangeUsername.text.toString().isEmpty()) {
+    private fun checkUsername() {
+        changeUsername = etChangeUsername.text.toString()
+
+        if (changeUsername.isEmpty()) {
             etChangeUsername.error = getString(R.string.errorUsername)
             etChangeUsername.requestFocus()
             return
         }
-        if (etChangeUsername.text.toString() == username) {
+        if (changeUsername == username) {
             etChangeUsername.error = getString(R.string.errorSameUsername)
             etChangeUsername.requestFocus()
             return
         }
-        val user = mapOf<String,String>(
+
+        controller.updateUsername(changeUsername)
+        /*val user = mapOf<String,String>(
             "username" to etChangeUsername.text.toString()
         )
-        //database.child("username").setValue()
         database.updateChildren(user).addOnSuccessListener {
             Toast.makeText(this@UserProfileActivity, getString(R.string.successChangeUsername), Toast.LENGTH_LONG).show()
             val intent = Intent(this@UserProfileActivity, HomeActivity::class.java)
@@ -74,6 +81,17 @@ class UserProfileActivity : AppCompatActivity() {
             finish()
         }.addOnFailureListener {
             Toast.makeText(this@UserProfileActivity, getString(R.string.errorChangeUsername), Toast.LENGTH_LONG).show()
-        }
+        }*/
+    }
+
+    fun updateUser() {
+        Toast.makeText(this@UserProfileActivity, getString(R.string.successChangeUsername), Toast.LENGTH_LONG).show()
+        val intent = Intent(this@UserProfileActivity, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun errorUpdateUser() {
+        Toast.makeText(this@UserProfileActivity, getString(R.string.errorChangeUsername), Toast.LENGTH_LONG).show()
     }
 }

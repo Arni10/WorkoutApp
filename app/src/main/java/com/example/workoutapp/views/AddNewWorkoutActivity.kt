@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.workoutapp.R
+import com.example.workoutapp.controllers.AddNewWorkoutController
 import com.example.workoutapp.models.Workout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_add_new_workout.*
 import kotlinx.android.synthetic.main.activity_register.*
 import java.text.SimpleDateFormat
@@ -19,11 +19,15 @@ import java.util.*
 
 class AddNewWorkoutActivity : AppCompatActivity() {
 
+    private val controller: AddNewWorkoutController = AddNewWorkoutController(this)
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var imageUri: Uri
     private lateinit var currentUserID: String
-    private lateinit var key: String
+    lateinit var workoutName: String
+    var workoutBurnedCalories: Double = 0.0
+    lateinit var workoutDate: String
+    var workoutDuration: Int = 0
 
     companion object{
         const val IMAGE_REQUEST_CODE = 100
@@ -64,21 +68,6 @@ class AddNewWorkoutActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadPicture() {
-        val formatter = SimpleDateFormat("yyyy.MM.dd")
-        val now = Date()
-        val fileName = formatter.format(now)
-
-        val storage = FirebaseStorage.getInstance().getReference("images").child(currentUserID)
-            .child("workouts").child(key).child(fileName)
-        storage.putFile(imageUri).addOnSuccessListener {
-
-        }.addOnFailureListener {
-            Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.errorWorkoutPicture), Toast.LENGTH_LONG).show()
-        }
-    }
-
-    //@SuppressLint("ResourceType")
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -96,54 +85,41 @@ class AddNewWorkoutActivity : AppCompatActivity() {
     }
 
     private fun checkWorkout() {
-        if (etAddNewWorkoutBurnedCalories.text.toString().isEmpty()) {
+        workoutName = etAddNewWorkoutName.text.toString()
+        workoutBurnedCalories = etAddNewWorkoutBurnedCalories.text.toString().toDouble()
+        workoutDate = tvAddNewWorkoutDate.text.toString()
+        workoutDuration = etAddNewWorkoutDuration.text.toString().toInt()
+
+        if (workoutBurnedCalories.toString().isEmpty()) {
             etAddNewWorkoutBurnedCalories.error = getString(R.string.errorAddWorkoutBurnedCalories)
             etAddNewWorkoutBurnedCalories.requestFocus()
             return
         }
-        if (tvAddNewWorkoutDate.text.toString() == getString(R.string.workoutDate)) {
+        if (workoutDate == getString(R.string.workoutDate)) {
             Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.errorAddWorkoutDate), Toast.LENGTH_LONG).show()
             return
         }
-        if (etAddNewWorkoutDuration.text.toString().isEmpty()) {
+        if (workoutDuration.toString().isEmpty()) {
             etAddNewWorkoutDuration.error = getString(R.string.errorAddWorkoutDuration)
             etAddNewWorkoutDuration.requestFocus()
             return
         }
-        saveWorkout()
-        uploadPicture()
+        controller.saveWorkout(workoutName, workoutBurnedCalories, workoutDate, workoutDuration)
+        controller.uploadPicture(imageUri)
     }
 
-    private fun saveWorkout() {
-        val workoutSaveDate = Calendar.getInstance().time
-        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
-        val workoutDate = simpleDateFormat.parse(tvAddNewWorkoutDate.text.toString())
-        val workout: Workout
-        if (etAddNewWorkoutName.text.toString().isNotEmpty()) {
-                workout = Workout(
-                    etAddNewWorkoutName.text.toString(),
-                    etAddNewWorkoutBurnedCalories.text.toString().toDouble(),
-                    workoutDate,
-                    etAddNewWorkoutDuration.text.toString().toInt(),
-                    workoutSaveDate
-                )
-        } else {
-                workout = Workout(
-                    getString(R.string.workoutNameDefault),
-                    etAddNewWorkoutBurnedCalories.text.toString().toDouble(),
-                    workoutDate,
-                    etAddNewWorkoutDuration.text.toString().toInt(),
-                    workoutSaveDate
-                )
-        }
-        key = database.child(currentUserID).child("Workouts").push().key.toString()
-        database.child(currentUserID).child("Workouts").child(key).setValue(workout).addOnSuccessListener {
-            Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.successSave), Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@AddNewWorkoutActivity, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }.addOnFailureListener {
-            Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.errorSaveWorkout), Toast.LENGTH_SHORT).show()
-        }
+    fun uploadPictureError() {
+        Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.errorWorkoutPicture), Toast.LENGTH_LONG).show()
+    }
+
+    fun addNewWorkout() {
+        Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.successSave), Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@AddNewWorkoutActivity, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun addNewWorkoutError() {
+        Toast.makeText(this@AddNewWorkoutActivity, getString(R.string.errorSaveWorkout), Toast.LENGTH_SHORT).show()
     }
 }

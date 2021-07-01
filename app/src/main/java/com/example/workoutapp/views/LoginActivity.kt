@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btnLogin.setOnClickListener{
-            loginUser()
+            checkUser()
         }
 
         tvGoToRegister.setOnClickListener(View.OnClickListener {
@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun loginUser() {
+    private fun checkUser() {
         email = etLoginEmail.text.toString()
         password = etLoginPassword.text.toString()
 
@@ -54,7 +54,11 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        auth.signInWithEmailAndPassword(etLoginEmail.text.toString(), etLoginPassword.text.toString())
+        loginUser()
+    }
+
+    private fun loginUser() {
+        auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser

@@ -12,13 +12,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_register.*
 
-class RegisterController(val view: RegisterActivity) {
+class RegisterController(private val view: RegisterActivity) {
 
-    private val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+    private lateinit var currentUserID: String
     private val database = FirebaseDatabase.getInstance().getReference("Users")
 
     fun saveUsername(username: String) {
-
+        currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
         val user = User(username)
         database.child(currentUserID).setValue(user).addOnSuccessListener {
             view.registerUser()

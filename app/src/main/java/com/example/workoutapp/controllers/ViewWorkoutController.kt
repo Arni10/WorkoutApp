@@ -1,4 +1,7 @@
 package com.example.workoutapp.controllers
 
-class ViewWorkoutController {
+import com.example.workoutapp.views.ViewWorkoutActivity
+
+class ViewWorkoutController(val viewWorkoutActivity: ViewWorkoutActivity) {
+
 }

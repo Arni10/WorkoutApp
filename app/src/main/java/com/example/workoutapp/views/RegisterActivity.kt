@@ -8,7 +8,10 @@ import android.view.View
 import android.widget.Toast
 import com.example.workoutapp.R
 import com.example.workoutapp.controllers.RegisterController
+import com.example.workoutapp.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
