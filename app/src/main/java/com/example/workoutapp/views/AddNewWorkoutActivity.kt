@@ -8,13 +8,11 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.workoutapp.R
 import com.example.workoutapp.controllers.AddNewWorkoutController
-import com.example.workoutapp.models.Workout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_add_new_workout.*
 import kotlinx.android.synthetic.main.activity_register.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AddNewWorkoutActivity : AppCompatActivity() {

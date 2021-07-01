@@ -20,7 +20,6 @@ class UserProfileActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var username: String
     private lateinit var changeUsername: String
-    //private lateinit var changedUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,17 +70,7 @@ class UserProfileActivity : AppCompatActivity() {
         }
 
         controller.updateUsername(changeUsername)
-        /*val user = mapOf<String,String>(
-            "username" to etChangeUsername.text.toString()
-        )
-        database.updateChildren(user).addOnSuccessListener {
-            Toast.makeText(this@UserProfileActivity, getString(R.string.successChangeUsername), Toast.LENGTH_LONG).show()
-            val intent = Intent(this@UserProfileActivity, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }.addOnFailureListener {
-            Toast.makeText(this@UserProfileActivity, getString(R.string.errorChangeUsername), Toast.LENGTH_LONG).show()
-        }*/
+
     }
 
     fun updateUser() {

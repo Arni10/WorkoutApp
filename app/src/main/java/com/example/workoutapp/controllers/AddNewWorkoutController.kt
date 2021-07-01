@@ -1,16 +1,11 @@
 package com.example.workoutapp.controllers
 
-import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
-import com.example.workoutapp.R
 import com.example.workoutapp.models.Workout
 import com.example.workoutapp.views.AddNewWorkoutActivity
-import com.example.workoutapp.views.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_add_new_workout.*
 import java.text.SimpleDateFormat
 import java.util.*
 

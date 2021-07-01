@@ -1,11 +1,8 @@
 package com.example.workoutapp.views
 
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.workoutapp.R
 import com.google.firebase.auth.FirebaseAuth
@@ -19,7 +16,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class ViewWorkoutActivity : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
+    //@RequiresApi(Build.VERSION_CODES.O)
 
     companion object{
         const val workoutName = "workoutName"
